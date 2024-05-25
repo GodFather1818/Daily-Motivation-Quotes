@@ -2,23 +2,30 @@ import smtplib
 import datetime as dt
 import random
 import pandas
+from dotenv import load_dotenv
+import os
+
+# Loading the environment variable
+load_dotenv()
 
 data = pandas.read_csv('persondetails.csv')
 person_dict = {'name', 'email'}
 data_list = data.to_dict(orient='records')
-# print(len(data_list))
+
 dict_name = []
 dict_mail = []
+
 for i in range(len(data_list)):
     data_dict = data_list[i]
     dict_name.append(data_dict['name'])
-    # print(dict_name)
     dict_mail.append(data_dict['email'])
 
-# print(dict_name, dict_mail)
 
-my_email = 'sahilshah062018@gmail.com'
-password = 'tvrztjbkboyogbna'
+
+
+# Get email and password from environment variables
+my_email = os.getenv('EMAIL_USER')
+password = os.getenv('EMAIL_PASS')
 
 now = dt.datetime.now()
 weekday = now.weekday()
